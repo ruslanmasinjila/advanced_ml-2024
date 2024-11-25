@@ -1,0 +1,7 @@
+1)  Generate Sensor Data...[]
+2)  Augment Sensor Data to generate 2000 images...[]
+3)  Split the images to 1000 by 1000...[]
+4)  Fuse the images using weighted interpolation to produce output images...[]
+5)  Rasterize all images...[]
+6)  Train a diffusion model...[]
+7)  Test a diffusion model...[]
