@@ -32,7 +32,7 @@ def augment_dataframe(df):
     # Random transformations
     angle = random.uniform(0, 360)  # Random angle in degrees
     scale_x, scale_y = random.uniform(0.5, 2.0), random.uniform(0.5, 2.0)  # Random scaling factors
-    shift_x, shift_y = random.uniform(-10, 10), random.uniform(-10, 10)  # Random translation shifts
+    shift_x, shift_y = random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)  # Random translation shifts
     skew_x, skew_y = random.uniform(-0.5, 0.5), random.uniform(-0.5, 0.5)  # Random skew factors
 
     # Apply transformations
@@ -49,7 +49,8 @@ def augment_dataframe(df):
 base_sensor_model = pd.read_csv('base_sensor_model.csv')
 
 # Generate 2000 augmented dataframes
-augmented_sensor_data = [augment_dataframe(base_sensor_model) for _ in range(2000)]
+############################################################################################## change back to 2000
+augmented_sensor_data = [augment_dataframe(base_sensor_model) for _ in range(10)]
 
 # Save the augmented sensor data
 with open('augmented_sensor_data.pkl', 'wb') as f:

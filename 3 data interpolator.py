@@ -6,9 +6,6 @@ from shapely.ops import unary_union
 import pickle
 
 
-# Function to compute centroid and area
-def compute_centroid_and_area(shape):
-    return shape.centroid, shape.area
 
 # Function to interpolate between two polygons
 def interpolate_shapes(shape_a, shape_b, weight_a=0.5):
@@ -59,32 +56,40 @@ augmented_sensor_data = [Polygon(i) for i in augmneted_sensor_data]
 
 
 
-x,y = augmented_sensor_data[400].exterior.xy
-plt.plot(x,y)
-plt.show()
 
 # Divide the data into two equal parts
-#l = len(augmneted_sensor_data)
-#list_shape_a = augmneted_sensor_data[:int(l/2)]
-#list_shape_b = augmneted_sensor_data[int(l/2):]
+l = len(augmneted_sensor_data)
+
+list_shape_a = augmneted_sensor_data[:int(l/2)]
+list_shape_a = [Polygon(i) for i in list_shape_a]
+
+list_shape_b = augmneted_sensor_data[int(l/2):]
+list_shape_b = [Polygon(i) for i in list_shape_b]
 
 
 
-'''
 # Interpolate the two shapes
-result_shape = interpolate_shapes(shape_a, shape_b)
+
+list_shape_result = [
+    interpolate_shapes(shape_a, shape_b) 
+    for shape_a, shape_b in zip(list_shape_a, list_shape_b)
+]
+
+
+
+
 
 # Plot the results
 fig, ax = plt.subplots(figsize=(8, 8))
 
 # Plot the first and second shapes
-x_a, y_a = shape_a.exterior.xy
-x_b, y_b = shape_b.exterior.xy
+x_a, y_a = list_shape_a[1].exterior.xy
+x_b, y_b = list_shape_b[1].exterior.xy
 ax.fill(x_a, y_a, alpha=0.5, label="Shape A", color='red')
 ax.fill(x_b, y_b, alpha=0.5, label="Shape B", color='blue')
 
 # Plot the interpolated shape
-x_res, y_res = result_shape.exterior.xy
+x_res, y_res = list_shape_result[1].exterior.xy
 ax.fill(x_res, y_res, alpha=0.5, label="Hybrid Shape", color='green')
 
 # Set labels and title
@@ -92,4 +97,3 @@ ax.set_title("Fused Shape (Hybrid of A and B)")
 ax.legend()
 
 plt.show()
-'''
