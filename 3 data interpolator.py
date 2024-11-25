@@ -5,17 +5,6 @@ from shapely.geometry import Polygon
 from shapely.ops import unary_union
 import pickle
 
-'''
-# Function to generate a random convex polygon
-def generate_random_shape(num_points=6, size_range=(0.1, 1)):
-    # Generate random points within a given size range
-    points = np.random.rand(num_points, 2)
-    # Scale points to lie within a reasonable size range
-    points *= np.random.uniform(size_range[0], size_range[1])
-    # Use the convex hull of these points to create a convex polygon
-    poly = Polygon(points)
-    return poly.convex_hull
-'''
 
 # Function to compute centroid and area
 def compute_centroid_and_area(shape):
@@ -55,12 +44,8 @@ def interpolate_shapes(shape_a, shape_b, weight_a=0.5):
     interpolated_points = np.array(interpolated_points)
     return Polygon(interpolated_points)
 
-# Generate two random shapes
-#shape_a = generate_random_shape(num_points=5)
-#shape_b = generate_random_shape(num_points=5)
-points = np.random.rand(10, 2)
-print(points)
 
+# Load the augmented Data of the Sensor
 augmneted_sensor_data = None
 with open('augmented_sensor_data.pkl', 'rb') as f:
     augmneted_sensor_data = pickle.load(f)
@@ -69,14 +54,21 @@ with open('augmented_sensor_data.pkl', 'rb') as f:
 # Convert augmented points from dataframes to list of x,y coordinates
 augmneted_sensor_data = [i.values for i in augmneted_sensor_data]
 
-print(augmneted_sensor_data[0])
-'''
-l = len(augmneted_sensor_data)
-print(l)
-list_shape_a = augmneted_sensor_data[:int(l/2)]
-list_shape_b = augmneted_sensor_data[int(l/2):]
-print(len(list_shape_a),len(list_shape_b))
-'''
+# Convert x,y coordinates to polygon
+augmented_sensor_data = [Polygon(i) for i in augmneted_sensor_data]
+
+
+
+x,y = augmented_sensor_data[400].exterior.xy
+plt.plot(x,y)
+plt.show()
+
+# Divide the data into two equal parts
+#l = len(augmneted_sensor_data)
+#list_shape_a = augmneted_sensor_data[:int(l/2)]
+#list_shape_b = augmneted_sensor_data[int(l/2):]
+
+
 
 '''
 # Interpolate the two shapes
