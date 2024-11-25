@@ -31,12 +31,13 @@ theta = np.concatenate([theta_along_theta1, theta_along_theta2, theta_along_r1, 
 x = r * np.cos(theta)
 y = r * np.sin(theta)
 
-sensor_model = pd.DataFrame()
-sensor_model['x'] = x
-sensor_model['y'] = y
+base_sensor_model = pd.DataFrame()
+base_sensor_model['x'] = x
+base_sensor_model['y'] = y
 
-sensor_model.to_csv('sensor_model.csv')
+base_sensor_model.to_csv('base_sensor_model.csv')
 
+'''
 
 # Plot
 plt.figure(figsize=(8, 8))
@@ -48,3 +49,5 @@ plt.ylabel('Y')
 plt.grid(True)
 plt.legend()
 plt.show()
+
+'''
