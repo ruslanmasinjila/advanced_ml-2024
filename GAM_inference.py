@@ -73,7 +73,7 @@ for i in range(len(list_shape_a)):
 print(f'Average RMSE on 100 inferences: {np.mean(rmse_inference)}')
 
 
-index = 40
+index = 20
 
 plt.figure(figsize=(8, 8))
 

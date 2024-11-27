@@ -27,7 +27,6 @@ list_shape_a = list_shape_a[:-100]
 list_shape_b = list_shape_b[:-100]
 list_shape_result = list_shape_result[:-100]
 
-print(len(list_shape_a),len(list_shape_b),len(list_shape_result))
 
 # Convert to numpy arrays
 list_shape_a = np.array(list_shape_a).reshape(-1, 2)
