@@ -1,23 +1,18 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import tensorflow as tf
 import pickle
-from pygam import GAM, s, LinearGAM
-from sklearn.model_selection import train_test_split, KFold
-from sklearn.model_selection import cross_val_score, KFold
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from tensorflow.keras.models import Sequential, Model, save_model, load_model
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.optimizers import Adam
+import sys
 
 
-gamYx = None
-gamYy = None
+gan = None
 
-# Load the saved model using pickle
-with open('gamYx.pkl', 'rb') as f:
-    gamYx = pickle.load(f)
-
-# Load the saved model using pickle
-with open('gamYy.pkl', 'rb') as f:
-    gamYy = pickle.load(f)
+gan = load_model('GAN.h5')
 
 list_shape_a = None
 list_shape_b = None
@@ -44,6 +39,7 @@ actual_result = []
 predicted_result = []
 
 
+
 for i in range(len(list_shape_a)):
     shape_a = list_shape_a[i].reshape(-1, 2)
     shape_b = list_shape_b[i].reshape(-1, 2)
@@ -56,8 +52,10 @@ for i in range(len(list_shape_a)):
     joint_df = pd.concat([shape_a_df, shape_b_df, shape_result_df], axis=1)
     X_new = joint_df[['x_shape_a', 'y_shape_a', 'x_shape_b', 'y_shape_b']].values
 
-    Yx_pred_new = gamYx.predict(X_new)
-    Yy_pred_new = gamYy.predict(X_new)
+    pred = gan.predict(X_new)
+    print(pred)
+
+    '''
 
     pred_df = pd.DataFrame()
     pred_df['x_shape_result'] = Yx_pred_new
@@ -69,7 +67,8 @@ for i in range(len(list_shape_a)):
     
     actual_result.append(shape_result_df)
     predicted_result.append(pred_df)
-
+    '''
+'''
 print(f'Average RMSE on 100 inferences: {np.mean(rmse_inference)}')
 
 
@@ -91,3 +90,4 @@ plt.ylabel('Y')
 plt.grid(True)
 plt.legend()
 plt.show()
+'''
