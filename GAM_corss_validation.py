@@ -15,17 +15,19 @@ list_shape_result = None
 with open('list_shape_a.pkl', 'rb') as f:
     list_shape_a = pickle.load(f)
 
-list_shape_a = list_shape_a[:-100]
 
 with open('list_shape_b.pkl', 'rb') as f:
     list_shape_b = pickle.load(f)
 
-list_shape_b = list_shape_b[:-100]
 
 with open('list_shape_result.pkl', 'rb') as f:
     list_shape_result = pickle.load(f)
 
+list_shape_a = list_shape_a[:-100]
+list_shape_b = list_shape_b[:-100]
 list_shape_result = list_shape_result[:-100]
+
+print(len(list_shape_a),len(list_shape_b),len(list_shape_result))
 
 # Convert to numpy arrays
 list_shape_a = np.array(list_shape_a).reshape(-1, 2)
@@ -39,7 +41,7 @@ list_shape_result_df = pd.DataFrame(list_shape_result, columns=['x_shape_result'
 joint_df = pd.concat([list_shape_a_df, list_shape_b_df, list_shape_result_df], axis=1)
 
 
-'''
+
 ################################################################################################
 
 X = joint_df[['x_shape_a', 'y_shape_a', 'x_shape_b', 'y_shape_b']].values
@@ -76,6 +78,16 @@ for train_index, test_index in kf.split(X):
 average_rmse = sum(rmse_scores) / len(rmse_scores)
 
 print(f'Average RMSE across 5 folds on y_x: {average_rmse}')
+
+# Initialize the Generalized Additive Model
+gamYx = LinearGAM(s(0) + s(1) + s(2) + s(3))  # Using smooth terms for each feature
+
+# Train the model on the entire dataset
+gamYx.fit(X, y_x)
+
+# Save the trained model to a file using pickle
+with open('gamYx.pkl', 'wb') as f:
+    pickle.dump(gamYx, f)
 
 
 ################################################################################################
@@ -115,8 +127,15 @@ average_rmse = sum(rmse_scores) / len(rmse_scores)
 
 print(f'Average RMSE across 5 folds on y_y: {average_rmse}')
 
+# Initialize the Generalized Additive Model
+gamYy = LinearGAM(s(0) + s(1) + s(2) + s(3))  # Using smooth terms for each feature
+
+# Train the model on the entire dataset
+gamYy.fit(X, y_y)
+
+# Save the trained model to a file using pickle
+with open('gamYy.pkl', 'wb') as f:
+    pickle.dump(gamYy, f)
+
+
 ###############################################################################################
-'''
-
-
-
