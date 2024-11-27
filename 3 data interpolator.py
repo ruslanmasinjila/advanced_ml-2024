@@ -63,8 +63,10 @@ l = len(augmneted_sensor_data)
 list_shape_a = augmneted_sensor_data[:int(l/2)]
 list_shape_a = [Polygon(i) for i in list_shape_a]
 
+
 list_shape_b = augmneted_sensor_data[int(l/2):]
 list_shape_b = [Polygon(i) for i in list_shape_b]
+
 
 
 
@@ -74,6 +76,10 @@ list_shape_result = [
     interpolate_shapes(shape_a, shape_b) 
     for shape_a, shape_b in zip(list_shape_a, list_shape_b)
 ]
+
+list_shape_a = [list(x.exterior.coords) for x in list_shape_a]
+list_shape_b = [list(x.exterior.coords) for x in list_shape_b]
+list_shape_result = [list(x.exterior.coords) for x in list_shape_result]
 
 
 # Save the input and output shapes.
