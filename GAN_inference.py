@@ -7,7 +7,7 @@ import pickle
 from tensorflow.keras.models import Sequential, Model, save_model, load_model
 from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.optimizers import Adam
-import sys
+import matplotlib.pyplot as plt
 
 
 gan = None
@@ -53,13 +53,10 @@ for i in range(len(list_shape_a)):
     X_new = joint_df[['x_shape_a', 'y_shape_a', 'x_shape_b', 'y_shape_b']].values
 
     pred = gan.predict(X_new)
-    print(pred)
 
-    '''
 
-    pred_df = pd.DataFrame()
-    pred_df['x_shape_result'] = Yx_pred_new
-    pred_df['y_shape_result'] = Yy_pred_new
+    pred_df = pd.DataFrame(pred, columns=['x_shape_result', 'y_shape_result'])
+
 
     for col in pred_df.columns:
         rmse = np.sqrt(((pred_df[col] - shape_result_df[col]) ** 2).mean())
@@ -67,12 +64,12 @@ for i in range(len(list_shape_a)):
     
     actual_result.append(shape_result_df)
     predicted_result.append(pred_df)
-    '''
-'''
+
+
 print(f'Average RMSE on 100 inferences: {np.mean(rmse_inference)}')
 
 
-index = 20
+index = 25
 
 plt.figure(figsize=(8, 8))
 
@@ -84,10 +81,10 @@ plt.scatter(actual_result[index]['x_shape_result'], actual_result[index]['y_shap
 
 # Set equal aspect ratio and other properties
 plt.gca().set_aspect('equal', adjustable='box')
-plt.title('ACtual VS Prediction')
+plt.title('Actual VS Prediction')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.grid(True)
 plt.legend()
 plt.show()
-'''
+
