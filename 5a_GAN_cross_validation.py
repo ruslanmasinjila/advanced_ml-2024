@@ -7,6 +7,7 @@ import pickle
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.optimizers import Adam
+import time
 
 list_shape_a = None
 list_shape_b = None
@@ -77,6 +78,7 @@ results = []
 
 generator = None
 
+start_time = time.time()
 for fold, (train_idx, test_idx) in enumerate(kf.split(inputs)):
     X_train, X_test = inputs[train_idx], inputs[test_idx]
     y_train, y_test = outputs[train_idx], outputs[test_idx]
@@ -94,7 +96,7 @@ for fold, (train_idx, test_idx) in enumerate(kf.split(inputs)):
 
     # Training GAN
     batch_size = 16
-    epochs = 1000
+    epochs = 1
     for epoch in range(epochs):
         # Train discriminator
         real_data = y_train[np.random.randint(0, y_train.shape[0], batch_size)]
@@ -115,13 +117,14 @@ for fold, (train_idx, test_idx) in enumerate(kf.split(inputs)):
     mse = mean_squared_error(y_test, predictions)
     results.append({'fold': fold + 1, 'MAE': mae, 'MSE': mse})
     print(f"Fold {fold + 1}: MAE={mae:.4f}, MSE={mse:.4f}")
+end_time = time.time()
 
 # Display cross-validation results
 cv_results = pd.DataFrame(results)
 print("\nCross-validation results:")
 print(cv_results)
-print("\nMean MAE:", cv_results['MAE'].mean())
 print("Mean MSE:", cv_results['MSE'].mean())
+print(f"Total Time: {end_time-start_time}")
 
 # Save the generator here
 generator.save('GAN.h5')

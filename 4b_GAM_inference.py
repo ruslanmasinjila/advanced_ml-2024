@@ -73,7 +73,7 @@ for i in range(len(list_shape_a)):
 print(f'Average mse on 100 inferences: {np.mean(mse_inference)}')
 
 
-index = 25
+index = 26
 
 plt.figure(figsize=(8, 8))
 
@@ -81,11 +81,11 @@ plt.figure(figsize=(8, 8))
 plt.scatter(predicted_result[index]['x_shape_result'], predicted_result[index]['y_shape_result'], color='blue', s=10, label='Prediction')
 
 # Add another set of points with different color
-plt.scatter(actual_result[index]['x_shape_result'], actual_result[index]['y_shape_result'], color='red', s=10, label='actual_result')
+plt.scatter(actual_result[index]['x_shape_result'], actual_result[index]['y_shape_result'], color='red', s=10, label='Actual Result')
 
 # Set equal aspect ratio and other properties
 plt.gca().set_aspect('equal', adjustable='box')
-plt.title('Actual VS Prediction')
+plt.title('Actual VS Prediction for GAM')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.grid(True)

@@ -6,6 +6,7 @@ from pygam import GAM, s, LinearGAM
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.model_selection import cross_val_score, KFold
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+import time
 
 list_shape_a = None
 list_shape_b = None
@@ -52,6 +53,7 @@ kf = KFold(n_splits=5, shuffle=True, random_state=42)
 # Variable to store mse scores for each fold
 mse_scores = []
 
+start_timeX = time.time()
 # Perform 5-fold cross-validation
 for train_index, test_index in kf.split(X):
     X_train, X_test = X[train_index], X[test_index]
@@ -72,6 +74,8 @@ for train_index, test_index in kf.split(X):
     # Compute mse (square root of MSE)
     mse = np.sqrt(mse)
     mse_scores.append(mse)
+
+end_timeX = time.time()
 
 # Calculate the average mse across all folds
 average_mse = sum(mse_scores) / len(mse_scores)
@@ -100,6 +104,7 @@ kf = KFold(n_splits=5, shuffle=True, random_state=42)
 # Variable to store mse scores for each fold
 mse_scores = []
 
+start_timeY = time.time()
 # Perform 5-fold cross-validation
 for train_index, test_index in kf.split(X):
     X_train, X_test = X[train_index], X[test_index]
@@ -121,13 +126,16 @@ for train_index, test_index in kf.split(X):
     #mse = np.sqrt(mse)
     mse_scores.append(mse)
 
+end_timeY = time.time()
+
 # Calculate the average mse across all folds
 average_mse = sum(mse_scores) / len(mse_scores)
 
 print(f'Average mse across 5 folds on y_y: {average_mse}')
+print(f'Total Time: {(end_timeX-start_timeX)+(end_timeY-start_timeY)}')
 
 # Initialize the Generalized Additive Model
-gamYy = LinearGAM(s(0) + s(1) + s(2) + s(3))  # Using smooth terms for each feature
+gamYy = GAM(s(0) + s(1) + s(2) + s(3))  # Using smooth terms for each feature
 
 # Train the model on the entire dataset
 gamYy.fit(X, y_y)

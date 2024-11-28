@@ -70,7 +70,7 @@ for i in range(len(list_shape_a)):
 print(f'Average RMSE on 100 inferences: {np.mean(rmse_inference)}')
 
 
-index = 25
+index = 26
 
 plt.figure(figsize=(8, 8))
 
@@ -82,7 +82,7 @@ plt.scatter(actual_result[index]['x_shape_result'], actual_result[index]['y_shap
 
 # Set equal aspect ratio and other properties
 plt.gca().set_aspect('equal', adjustable='box')
-plt.title('Actual VS Prediction')
+plt.title('Actual VS Prediction for CNN')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.grid(True)

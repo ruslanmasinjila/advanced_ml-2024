@@ -6,6 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, InputLayer
 from tensorflow.keras.optimizers import Adam
 import pickle
+import time
 
 list_shape_a = None
 list_shape_b = None
@@ -55,7 +56,7 @@ def create_model():
         Dense(64, activation='relu'),
         Dense(2)  # Two outputs: x_shape_result and y_shape_result
     ])
-    model.compile(optimizer=Adam(learning_rate=0.001), loss='mse', metrics=['mae'])
+    model.compile(optimizer=Adam(learning_rate=0.001), loss='mse', metrics=['mse'])
     return model
 
 # 5-Fold Cross Validation
@@ -65,6 +66,7 @@ cv_results = []
 
 model = None
 
+start_time = time.time()
 for train_index, val_index in kf.split(X_cnn):
     print(f"Fold {fold}")
     X_train, X_val = X_cnn[train_index], X_cnn[val_index]
@@ -73,14 +75,16 @@ for train_index, val_index in kf.split(X_cnn):
     model = create_model()
     history = model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=1, batch_size=8, verbose=1)
     
-    val_loss, val_mae = model.evaluate(X_val, y_val, verbose=0)
-    print(f"Validation Loss: {val_loss}, Validation MAE: {val_mae}")
-    cv_results.append((val_loss, val_mae))
+    val_loss, val_mse = model.evaluate(X_val, y_val, verbose=0)
+    print(f"Validation Loss: {val_loss}, Validation MSE: {val_mse}")
+    cv_results.append((val_loss, val_mse))
     fold += 1
+end_time = time.time()
 
 # Average metrics over folds
 avg_loss = np.mean([result[0] for result in cv_results])
-avg_mae = np.mean([result[1] for result in cv_results])
-print(f"Average Validation Loss: {avg_loss}, Average Validation MAE: {avg_mae}")
+avg_mse = np.mean([result[1] for result in cv_results])
+print(f"Average Validation Loss: {avg_loss}, Average Validation MSE: {avg_mse}")
+print(f"Total Time: {end_time-start_time}")
 
 model.save("CNN.h5")
