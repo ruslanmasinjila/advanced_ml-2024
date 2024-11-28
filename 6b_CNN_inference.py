@@ -1,18 +1,18 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-import tensorflow as tf
-import pickle
-from tensorflow.keras.models import Sequential, Model, save_model, load_model
-from tensorflow.keras.layers import Dense, Input
+from sklearn.metrics import mean_squared_error
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, Conv2D, Flatten, InputLayer
 from tensorflow.keras.optimizers import Adam
+import pickle
 import matplotlib.pyplot as plt
+import sys
 
 
-gan = None
+cnn = None
 
-gan = load_model('GAN.h5')
+cnn = load_model('CNN.h5')
 
 list_shape_a = None
 list_shape_b = None
@@ -51,8 +51,9 @@ for i in range(len(list_shape_a)):
 
     joint_df = pd.concat([shape_a_df, shape_b_df, shape_result_df], axis=1)
     X_new = joint_df[['x_shape_a', 'y_shape_a', 'x_shape_b', 'y_shape_b']].values
+    X_new = X_new.reshape(X_new.shape[0], 2, 2, 1)
 
-    pred = gan.predict(X_new)
+    pred = cnn.predict(X_new)
 
 
     pred_df = pd.DataFrame(pred, columns=['x_shape_result', 'y_shape_result'])
@@ -87,4 +88,3 @@ plt.ylabel('Y')
 plt.grid(True)
 plt.legend()
 plt.show()
-

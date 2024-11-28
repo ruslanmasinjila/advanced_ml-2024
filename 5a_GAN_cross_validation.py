@@ -45,7 +45,6 @@ joint_df = pd.concat([list_shape_a_df, list_shape_b_df, list_shape_result_df], a
 inputs = joint_df[['x_shape_a', 'y_shape_a', 'x_shape_b', 'y_shape_b']].values
 outputs = joint_df[['x_shape_result', 'y_shape_result']].values
 
-print(inputs)
 
 # GAN components
 def create_generator(input_dim, output_dim):
@@ -76,6 +75,8 @@ def create_gan(generator, discriminator):
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 results = []
 
+generator = None
+
 for fold, (train_idx, test_idx) in enumerate(kf.split(inputs)):
     X_train, X_test = inputs[train_idx], inputs[test_idx]
     y_train, y_test = outputs[train_idx], outputs[test_idx]
@@ -85,7 +86,7 @@ for fold, (train_idx, test_idx) in enumerate(kf.split(inputs)):
     discriminator = create_discriminator(input_dim=y_train.shape[1])
     
     # Compile discriminator
-    discriminator.compile(optimizer=Adam(learning_rate=0.0002), loss='binary_crossentropy', metrics=['accuracy'])
+    discriminator.compile(optimizer=Adam(learning_rate=0.0001), loss='binary_crossentropy', metrics=['accuracy'])
     
     # Create and compile GAN
     gan = create_gan(generator, discriminator)
@@ -121,3 +122,6 @@ print("\nCross-validation results:")
 print(cv_results)
 print("\nMean MAE:", cv_results['MAE'].mean())
 print("Mean MSE:", cv_results['MSE'].mean())
+
+# Save the generator here
+generator.save('GAN.h5')
