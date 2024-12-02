@@ -39,7 +39,7 @@ def augment_dataframe(df):
     x, y = random_rotation(x, y, angle)
     x, y = random_resize(x, y, scale_x, scale_y)
     x, y = random_translation(x, y, shift_x, shift_y)
-    #x, y = random_skew(x, y, skew_x, skew_y)
+    x, y = random_skew(x, y, skew_x, skew_y)
 
     # Create a new dataframe
     augmented_df = pd.DataFrame({'x': x, 'y': y})
