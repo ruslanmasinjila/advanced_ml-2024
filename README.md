@@ -26,9 +26,10 @@ Machine learning (ML) techniques offer promising solutions to overcome these lim
 This project aims to study the feasibility of ML approaches in sensor fusion. Specifically, the project investigates the performance of Generalized Additive Models (GAM), Generative Adversarial Networks (GAN), and Convolutional Neural Networks (CNN) in the fusion of simulated range-bearing sensor data for robot localization.
 1.1.1	Specific Objectives
 The specific objectives of this project are as follows:
-Generate a synthetic dataset simulating range-bearing sensor measurements with random uncertainty.
-Divide the dataset into training and validation sets.
-Train and evaluate the performance of Generalized Additive Models (GAM), Generative Adversarial Networks (GAN), and Convolutional Neural Networks (CNN) using 5-fold cross-validation on the training dataset.
-Assess the performance of GAM, GAN, and CNN on the validation dataset.
+<br>
+-  Generate a synthetic dataset simulating range-bearing sensor measurements with random uncertainty.
+-  Divide the dataset into training and validation sets.
+-  Train and evaluate the performance of Generalized Additive Models (GAM), Generative Adversarial Networks (GAN), and Convolutional Neural Networks (CNN) using 5-fold cross-validation on the training dataset.>
+-  Assess the performance of GAM, GAN, and CNN on the validation dataset.
 
 
