@@ -138,7 +138,8 @@ generator.save('GAN.h5')
 
 gan = None
 
-gan = load_model('GAN.h5')
+gan = generator
+
 
 list_shape_a = None
 list_shape_b = None
