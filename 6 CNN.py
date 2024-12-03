@@ -89,17 +89,13 @@ std     = np.std([result[1] for result in cv_results])
 print(f"Average Validation MSE for 5-fold cross validation: {avg_mse}")
 print(f"Standard Deviation of  MSE for 5-fold cross validation: {std}")
 
-model.save("CNN.h5")
-
-
-
 
 #################################################################################
 # INFERENCE
 #################################################################################
 cnn = None
 
-cnn = load_model('CNN.h5')
+cnn = model
 
 list_shape_a = None
 list_shape_b = None

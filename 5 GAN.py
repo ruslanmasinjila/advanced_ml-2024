@@ -127,9 +127,6 @@ print(cv_results)
 print("Mean MSE:", cv_results['MSE'].mean())
 print("Standard Deviation in MSE:", cv_results['MSE'].std())
 
-# Save the generator here
-generator.save('GAN.h5')
-
 
 #################################################################################################
 # INFERENCE
