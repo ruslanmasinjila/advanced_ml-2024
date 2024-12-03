@@ -1,6 +1,0 @@
-1)  Generate Sensor Model...[X]
-2)  Augment Sensor Model to generate 2000 images...[X]
-3)  Split the images to 1000 by 1000...[X]
-4)  Fuse the images using weighted interpolation to produce output images...[X]
-5)  Train a GAM...[X]
-6)  Test a GAM...[]
