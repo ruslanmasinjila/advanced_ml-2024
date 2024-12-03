@@ -38,18 +38,3 @@ base_sensor_model['x'] = x
 base_sensor_model['y'] = y
 
 base_sensor_model.to_csv('base_sensor_model.csv')
-
-'''
-
-# Plot
-plt.figure(figsize=(8, 8))
-plt.scatter(x, y, color='blue', s=10, label='Data points')
-plt.gca().set_aspect('equal', adjustable='box')
-plt.title('Generated Data Points')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.grid(True)
-plt.legend()
-plt.show()
-
-'''

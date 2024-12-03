@@ -92,24 +92,3 @@ with open('list_shape_b.pkl', 'wb') as f:
 with open('list_shape_result.pkl', 'wb') as f:
     pickle.dump(list_shape_result, f)
 
-
-'''
-# Plot the results
-fig, ax = plt.subplots(figsize=(8, 8))
-
-# Plot the first and second shapes
-x_a, y_a = list_shape_a[0].exterior.xy
-x_b, y_b = list_shape_b[0].exterior.xy
-ax.fill(x_a, y_a, alpha=0.5, label="Shape A", color='red')
-ax.fill(x_b, y_b, alpha=0.5, label="Shape B", color='blue')
-
-# Plot the interpolated shape
-x_res, y_res = list_shape_result[0].exterior.xy
-ax.fill(x_res, y_res, alpha=0.5, label="Hybrid Shape", color='green')
-
-# Set labels and title
-ax.set_title("Fused Shape (Hybrid of A and B)")
-ax.legend()
-
-plt.show()
-'''
